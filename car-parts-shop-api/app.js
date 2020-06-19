@@ -9,10 +9,15 @@ const partsCarRouter = express.Router();
 const port = process.env.PORT || 3000;
 const CarPart = require('./models/carPart');
 
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json);
+
 
 partsCarRouter.route('/carParts')
     .post((req, res) => {
         const carPart = new CarPart(req.body);
+        carPart.save();        
+        return res.status(201).json(carPart);
     })
     .get((req, res) => {
         console.log(req);
